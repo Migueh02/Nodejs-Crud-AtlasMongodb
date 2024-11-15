@@ -10,10 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Configurar EJS como motor de plantillas
-app.set('view engine', 'ejs');
-app.set('views', './views');
+const path = require('path');
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Conectar a MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI, {

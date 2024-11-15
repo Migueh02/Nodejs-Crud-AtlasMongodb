@@ -16,9 +16,16 @@ app.set('views', './views');
 
 
 // Conectar a MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Conectado a MongoDB Atlas'))
-    .catch(err => console.error('Error al conectar:', err));
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 5000, // Tiempo máximo de conexión 5 segundos
+    serverSelectionTimeoutMS: 5000 // Tiempo máximo de selección del servidor 5 segundos
+}).then(() => {
+    console.log('Conectado a MongoDB');
+}).catch(err => {
+    console.error('Error al conectar a MongoDB:', err);
+});
 
 // Rutas
 app.use('/', emprendedoresRoutes);

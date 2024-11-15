@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Emprendedores</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Gestión de Emprendedores</h2>
+
+        <!-- Formulario de Crear Emprendedor -->
+        <form action="/crear" method="POST" class="mb-5">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Emprendedor</button>
+        </form>
+
+        <!-- Lista de Emprendedores -->
+        <h3>Emprendedores Registrados</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% emprendedores.forEach(emprendedor => { %>
+                    <tr>
+                        <td><%= emprendedor.nombre %></td>
+                        <td><%= emprendedor.correo %></td>
+                        <td><%= emprendedor.telefono %></td>
+                        <td><%= emprendedor.descripcion %></td>
+                        <td>
+                            <!-- Botón de Editar -->
+                            <a href="/editar/<%= emprendedor._id %>" class="btn btn-warning btn-sm">Editar</a>
+
+                            <!-- Botón de Eliminar -->
+                            <form action="/eliminar/<%= emprendedor._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
